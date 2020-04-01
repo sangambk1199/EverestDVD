@@ -1,0 +1,110 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Everest_DVD.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Everest DVD Store</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="nav-profile">
+            <div class="logo-left">
+                <a class="navbar-brand" runat="server" href="~/">Everest<span>DVD</span></a>
+            </div>
+            <div class="profile-right">
+                <% if (Session["user_name"] != null)
+                    { 
+                        Response.Write("Welcome, " + Session["user_name"].ToString()); %>
+                        <asp:Button ID="Button1" CssClass="btn-w-auto everest-btn" runat="server" Text="Logout" OnClick="Button1_Click" />
+                <% }
+                else { %>
+                        <a href="Login">Login</a>
+                   <% } %>
+            </div>   
+        </div>
+        
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" runat="server" href="~/">Everest<span>DVD</span></a>
+                
+                    
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <% 
+                        if(Session["user_role"] != null) {
+                            int userRole = Convert.ToInt32(Session["user_role"]);
+                            %>
+                            <%
+                            if (userRole == 1 || userRole == 2 || userRole == 3)
+                            {%>
+                                <li><a runat="server" href="~/">Home</a></li>
+                                <li><a runat="server" href="~/Stock">Stock</a></li>
+                                
+                                <% if (userRole == 1 || userRole == 2)
+                                {%>
+                                    <li><a runat="server" href="~/Movies">Movies</a></li>
+                                    <li><a runat="server" href="~/Actors">Actors</a></li>
+                                    <li><a runat="server" href="~/Loans">Loan</a></li>
+                                    <li><a runat="server" href="~/Members">Members</a></li>
+                                    <li><a runat="server" href="~/Users">Users</a></li>
+                                <%}%>
+                        
+                        <%  }
+                        } 
+                    %>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="container body-content">
+            <div class="main-content">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            
+            
+            <!--footer>
+                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+            </!--footer-->
+        </div>
+
+    </form>
+</body>
+</html>
