@@ -33,8 +33,8 @@
 
                <asp:Label ID="Label1" runat="server" Text="Label" Visible="false"></asp:Label>
            </div> 
-           
-           <div class="box">
+            
+           <div class="box d-none">
                
                <h3>Add Membership Category</h3>
                <hr />
@@ -62,7 +62,7 @@
 
                 <asp:Label ID="Label2" runat="server" Text="Label" Visible="false"></asp:Label>
 
-                <asp:GridView ID="MemberTbl" CssClass="everest-table" runat="server" AutoGenerateColumns="False">
+                <asp:GridView ID="MemberTbl" CssClass="everest-table" runat="server" AutoGenerateColumns="False" OnRowCancelingEdit="MemberTbl_RowCancelingEdit" OnRowEditing="MemberTbl_RowEditing" OnRowUpdating="MemberTbl_RowUpdating" OnRowDataBound="MemberTbl_RowDataBound" OnRowDeleting="MemberTbl_RowDeleting">
                     <Columns>
                         <asp:TemplateField HeaderText="">
                             <ItemTemplate>
@@ -88,7 +88,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Age">
                             <EditItemTemplate>
-                                <asp:TextBox TextMode="Number" ID="TextBox3" runat="server" 
+                                <asp:TextBox TextMode="Number" ID="TextBox4" runat="server" 
                                     Text='<%# Eval("member_age") %>'></asp:TextBox>
                             </EditItemTemplate>
                             <ItemTemplate>
@@ -97,8 +97,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Category">
                             <EditItemTemplate>
-                                <asp:TextBox ID="TextBox4" runat="server" 
-                                    Text='<%# Eval("Category") %>'></asp:TextBox>
+                                <asp:DropDownList ID="EditCategoryDDL" runat="server"></asp:DropDownList>
                             </EditItemTemplate>
                             <ItemTemplate>
                                     <asp:Label ID="member_category"  runat="server" Text='<%# Eval("Category") %>'></asp:Label>

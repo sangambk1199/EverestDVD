@@ -19,7 +19,7 @@ namespace Everest_DVD
                     && currentPage.ToLower() != "signup"
                     && currentPage.ToLower() != "404")
                 {
-                    Response.Redirect("Login", false);
+                    //Response.Redirect("LoginPage", false);
                 }                
             } else
             {

@@ -14,6 +14,7 @@
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script src="Scripts/script.js"></script>
 
 </head>
 <body>
@@ -49,7 +50,7 @@
                         <asp:Button ID="Button1" CssClass="btn-w-auto everest-btn" runat="server" Text="Logout" OnClick="Button1_Click" />
                 <% }
                 else { %>
-                        <a href="Login">Login</a>
+                        <a href="LoginPage">Login</a>
                    <% } %>
             </div>   
         </div>
@@ -79,10 +80,23 @@
                                 
                                 <% if (userRole == 1 || userRole == 2)
                                 {%>
-                                    <li><a runat="server" href="~/Movies">Movies</a></li>
-                                    <li><a runat="server" href="~/Actors">Actors</a></li>
+                                    <li class="sub-menu-trigger">
+                                        <a runat="server" href="~/Movies">Movies</a>
+                                        <ul class="sub-menu">
+                                            <li><a runat="server" href="~/AddMovies">Add Movies</a></li>
+                                            <li><a runat="server" href="~/Actors">Actors</a></li>
+                                            <li><a runat="server" href="~/Producers">Producers</a></li>
+                                            <li><a runat="server" href="~/Studios">Studios</a></li>
+                                        </ul>
+                                    </li>
+                                    
                                     <li><a runat="server" href="~/Loans">Loan</a></li>
-                                    <li><a runat="server" href="~/Members">Members</a></li>
+                                    <li class="sub-menu-trigger">
+                                        <a runat="server" href="~/Members">Members</a>
+                                        <ul class="sub-menu">
+                                            <li><a runat="server" href="~/MembershipCategory">Membership Category</a></li>
+                                        </ul>
+                                    </li>
                                     <li><a runat="server" href="~/Users">Users</a></li>
                                 <%}%>
                         

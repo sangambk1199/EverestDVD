@@ -17,74 +17,121 @@ namespace Everest_DVD
 
         protected void loadTable()
         {
-            string sql1 = @"select m.id, m.movie_name, m.producer, m.studio, m.release_date, CASE 
-         WHEN m.is_age_restricted = 1 THEN 'Yes'
-         ELSE 'No'
-      END AS 'age_restriction',
-actors= STUFF((
-    SELECT ', ' + act.actor_name 
-    FROM movie_cast AS mcs
-	INNER JOIN actors as act on mcs.cast_member = act.id
-	where mcs.movie = mc.movie
-    FOR XML PATH, TYPE).value(N'.[1]', N'varchar(max)'), 1, 2, '') 
-from movies m
-left join movie_cast mc on mc.movie = m.id
-left join actors act on act.id = mc.cast_member
-group by m.id, m.movie_name, m.producer, m.studio, m.release_date, m.is_age_restricted, mc.movie
-order by m.release_date";
-
-            string sql2 = "SELECT * FROM producers";
-            string sql3 = "SELECT * FROM studio";
-            string sql4 = "SELECT * FROM actors";
+            string sql1 = @"select m.id, m.movie_name, pr.producer, std.studio, m.release_date, CASE 
+                                WHEN m.is_age_restricted = 1 THEN 'Yes'
+                                ELSE 'No'
+                            END AS 'age_restriction',
+                            actors= STUFF((
+                                SELECT ', ' + act.actor_name 
+                                FROM movie_cast AS mcs
+	                            INNER JOIN actors as act on mcs.cast_member = act.id
+	                            where mcs.movie = mc.movie
+                                FOR XML PATH, TYPE).value(N'.[1]', N'varchar(max)'), 1, 2, ''),
+	                        COUNT(ds.copy_num) as 'no_of_copies'
+                            from movies m
+                            left join movie_cast mc on mc.movie = m.id
+                            left join actors act on act.id = mc.cast_member
+                            left join producers pr on pr.id = m.producer
+                            left join studio std on std.id = m.studio
+                            left join dvd_stock ds on m.id = ds.movie
+                            group by m.id, m.movie_name, pr.producer, std.studio, m.release_date, m.is_age_restricted, mc.movie
+                            order by m.release_date;";
 
             MovieTbl.DataSource = dh.getTable(sql1);
             MovieTbl.DataBind();
-
-            ProducerDDL.DataSource = dh.getTable(sql2);
-            ProducerDDL.DataTextField = "producer";
-            ProducerDDL.DataValueField = "id";
-            ProducerDDL.DataBind();
-
-            StudioDDL.DataSource = dh.getTable(sql3);
-            StudioDDL.DataTextField = "studio";
-            StudioDDL.DataValueField = "id";
-            StudioDDL.DataBind();
-
-            ActorLB.DataSource = dh.getTable(sql4);
-            ActorLB.DataTextField = "actor_name";
-            ActorLB.DataValueField = "id";
-            ActorLB.DataBind();
         }
 
-        protected void MovieSaveBtn_Click(object sender, EventArgs e)
+
+        protected void MovieTbl_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            string sql = $@"INSERT INTO movies (movie_name, producer, studio, release_date, is_age_restricted) OUTPUT INSERTED.ID  values ('{NameTB.Text.Trim()}', '{ProducerDDL.Text.Trim()}', '{StudioDDL.Text.Trim()}', '{ReleaseDateTB.Text.Trim()}', {(AgeRestrictedCB.Checked ? 1 : 0)})";
-            dh.saveData(sql);
+            MovieTbl.EditIndex = e.NewEditIndex;
+            loadTable();
+            MovieTbl.EditRowStyle.BackColor = System.Drawing.Color.Orange;
+        }
 
-            Label1.Visible = true;
+        protected void MovieTbl_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            MovieTbl.EditIndex = -1;
+            loadTable();
+        }
 
-            int movieId = dh.identity;
-            Label1.Text = movieId.ToString(); // dh.response;
+        protected void MovieTbl_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            Label movieID = MovieTbl.Rows[e.RowIndex].FindControl("Movie_id") as Label;
+            string deleteQuery = "delete from movie_cast where movie=" + movieID.Text;
+            string deleteQuery2 = "delete from movies where id=" + movieID.Text;
+            string deleteQuery3 = "delete from dvd_stock where movie=" + movieID.Text;
 
-            if (movieId != 0)
-            {
-                foreach (ListItem item in ActorLB.Items)
-                {
-                    if (item.Selected)
-                    {
-                        string sql1 = $@"INSERT INTO movie_cast values ({movieId}, '{item.Value.Trim()}')";
-                        dh.saveData(sql1);
-
-                        Label1.Text = sql1; // dh.response;
-                    }
-                }
-            }
-
-
-
-            dh.ClearTextBoxes(Page);
+            dh.saveData(deleteQuery);
+            dh.saveData(deleteQuery2);
+            dh.saveData(deleteQuery3);
 
             loadTable();
+
+            Label2.Visible = true;
+            Label2.Text = dh.response;
+
+            MovieTbl.EditIndex = -1;
+        }
+
+        protected void SearchBox_TextChanged(object sender, EventArgs e)
+        {
+            searchTable(SearchBox.Text);            
+        }
+
+        protected void searchTable(string actorsName)
+        {
+            if (actorsName != "")
+            {
+                Label2.Visible = true;
+                Label2.Text = "Showing results for: '" + actorsName + "'";
+
+                string sql1 = $@"select m.id, m.movie_name, pr.producer, std.studio, m.release_date, CASE 
+                                        WHEN m.is_age_restricted = 1 THEN 'Yes'
+                                        ELSE 'No'
+                                    END AS 'age_restriction',
+                            actors= STUFF((
+                                SELECT ', ' + act.actor_name 
+                                FROM movie_cast AS mcs
+	                            INNER JOIN actors as act on mcs.cast_member = act.id
+	                            where mcs.movie = mc.movie
+                                FOR XML PATH, TYPE).value(N'.[1]', N'varchar(max)'), 1, 2, ''),
+	                                COUNT(ds.copy_num) as 'no_of_copies'
+                            from movies m
+                            left join movie_cast mc on mc.movie = m.id
+                            left join actors act on act.id = mc.cast_member
+                            left join producers pr on pr.id = m.producer
+                            left join studio std on std.id = m.studio
+                            left join dvd_stock ds on m.id = ds.movie
+                            WHERE act.actor_name LIKE '%{actorsName}%' or act.id LIKE '{actorsName}'
+                            group by m.id, m.movie_name, pr.producer, std.studio, m.release_date, m.is_age_restricted, mc.movie
+                            order by m.release_date;";
+
+                MovieTbl.DataSource = dh.getTable(sql1);
+                MovieTbl.DataBind();
+            }
+            else
+            {
+                Label2.Visible = false;
+                loadTable();
+            }
+            
+        }
+
+        protected void SearchBtn_Click(object sender, EventArgs e)
+        {
+            searchTable(SearchBox.Text);
+        }
+
+        protected void ShowCopies_CheckedChanged(object sender, EventArgs e)
+        {
+            if(ShowCopies.Checked)
+            {
+                MovieTbl.Columns[7].Visible = true;
+            } else
+            {
+                MovieTbl.Columns[7].Visible = false;
+            }
         }
     }
 }

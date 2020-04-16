@@ -108,6 +108,7 @@
     <Content Include="404.aspx" />
     <Content Include="About.aspx" />
     <Content Include="Actors.aspx" />
+    <Content Include="AddMovies.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -126,9 +127,13 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="IssueDVD.aspx" />
+    <Content Include="LoginPage.aspx" />
     <Content Include="Members.aspx" />
+    <Content Include="MembershipCategory.aspx" />
     <Content Include="Movies.aspx" />
     <Content Include="Producers.aspx" />
+    <Content Include="Scripts\script.js" />
     <Content Include="Stock.aspx" />
     <Content Include="Studios.aspx" />
     <Content Include="WebForm1.aspx" />
@@ -185,6 +190,13 @@
     <Compile Include="Actors.aspx.designer.cs">
       <DependentUpon>Actors.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AddMovies.aspx.cs">
+      <DependentUpon>AddMovies.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddMovies.aspx.designer.cs">
+      <DependentUpon>AddMovies.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -212,6 +224,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IssueDVD.aspx.cs">
+      <DependentUpon>IssueDVD.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="IssueDVD.aspx.designer.cs">
+      <DependentUpon>IssueDVD.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -219,12 +238,26 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="LoginPage.aspx.cs">
+      <DependentUpon>LoginPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoginPage.aspx.designer.cs">
+      <DependentUpon>LoginPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Members.aspx.cs">
       <DependentUpon>Members.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Members.aspx.designer.cs">
       <DependentUpon>Members.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MembershipCategory.aspx.cs">
+      <DependentUpon>MembershipCategory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MembershipCategory.aspx.designer.cs">
+      <DependentUpon>MembershipCategory.aspx</DependentUpon>
     </Compile>
     <Compile Include="Movies.aspx.cs">
       <DependentUpon>Movies.aspx</DependentUpon>

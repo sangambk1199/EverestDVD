@@ -1,6 +1,9 @@
 ﻿@import url('https://fonts.googleapis.com/css?family=Montserrat|Saira+Semi+Condensed:300,400,500,600&display=swap');
 
 /* Move down content because we have a fixed navbar that is 50px tall */
+* {
+    box-sizing: border-box;
+}
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -13,6 +16,14 @@ h1, h2, h3, h4, .navbar-brand {
     font-family: 'Saira Semi Condensed', sans-serif;
     font-weight: 600;
     text-transform: uppercase;
+}
+
+.d-none {
+    display: none;
+}
+
+.w-auto {
+    width: auto;
 }
 
 .navbar-brand {
@@ -59,10 +70,6 @@ h1, h2, h3, h4, .navbar-brand {
     width: 100%;
 }
 
-.navbar-nav > li:hover {
-    background-color: #808080;
-    color: #000;
-}
 
 .navbar-header {
     display: block;
@@ -134,6 +141,7 @@ form textarea {
     width: 100%;
     padding: 10px;
     background-color: #141f34;
+    color: #fff;
     border: 1px solid #1d3f6c;
     max-width: 100%;
 }
@@ -175,11 +183,70 @@ form input[type='checkbox'] {
     text-align: right;
     padding-right: 15px;
 }
+
+.sub-menu {
+    height: 0;
+    overflow: hidden;
+    transition: .5s height ease-in-out 0s;
+    list-style: none;
+    padding: 0;
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-    .jumbotron {
+.sub-menu a {
+    font-family: 'Saira Semi Condensed', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #99C5FF;
+    padding: 15px 30px;
+    text-decoration: none;
+    display: block;
+    background-color: #041836;
+}
+
+.sub-menu a:hover {
+    background-color: #001332;
+    color: #fff;
+}
+
+.sub-menu a::before {
+    content: '\25BA';
+    margin-right: 10px;
+    font-size: 10px;
+}
+
+.sub-menu-trigger:hover {
+    background-color: #000e24;
+}
+
+.sub-menu-trigger:hover .sub-menu {
+    height: auto;
+}
+
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    background-color: #1D2C49;
+    padding: 30px;
+}
+
+.login-form {
+    display: flex;
+    justify-content: center;
+}
+
+    .login-form .navbar-brand {
+        text-align: center;
+        display: block;
+        margin-bottom: 30px;
+    }
+
+    .login-form .form-group {
+        margin-bottom: 20px;
+    }
+    /* Responsive: Portrait tablets and up */
+    @media screen and (min-width: 768px) {
+        .jumbotron {
         margin-top: 20px;
     }
 
