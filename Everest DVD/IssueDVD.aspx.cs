@@ -11,30 +11,37 @@ namespace Everest_DVD
     {
         DataHandler dh = new DataHandler();
         protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack) loadGrid();
-        }
+        {            
 
-        private void loadGrid()
-        {
-            string sql2 = "SELECT * FROM producers";
-            string sql3 = "SELECT * FROM studio";
-            string sql4 = "SELECT * FROM actors";
+            
 
-            ProducerDDL.DataSource = dh.getTable(sql2);
-            ProducerDDL.DataTextField = "producer";
-            ProducerDDL.DataValueField = "id";
-            ProducerDDL.DataBind();
+            if (Request.QueryString["movie"] != null
+                && Request.QueryString["copy"] != null
+                && Request.QueryString["member"] != null
+                && Request.QueryString["dateDue"] != null)
+            {
+                var movie = Request.QueryString["movie"];
+                var copy = Request.QueryString["copy"];
+                var member = Request.QueryString["member"];
+                var dateDue = Request.QueryString["dateDue"];
 
-            StudioDDL.DataSource = dh.getTable(sql3);
-            StudioDDL.DataTextField = "studio";
-            StudioDDL.DataValueField = "id";
-            StudioDDL.DataBind();
+                string sql = $@"insert into loans (movie, copy_num, member_num, date_out, date_due) values ({movie}, {copy}, {member}, GETDATE(), '{dateDue}')";
+                dh.runQuery(sql);
 
-            ActorLB.DataSource = dh.getTable(sql4);
-            ActorLB.DataTextField = "actor_name";
-            ActorLB.DataValueField = "id";
-            ActorLB.DataBind();
+                string sql2 = $@"UPDATE dvd_stock SET is_loaned = 1 WHERE movie = {movie} and copy_num = {copy}";
+                dh.runQuery(sql2);
+
+                Response.Write(dh.response);
+                /*Response.Write("Copy: " + Request.QueryString["copy"]);
+                Response.Write("Member: " + Request.QueryString["member"]);
+                Response.Write("Date Due: " + Request.QueryString["dateDue"]);*/
+                Response.End();
+            } else
+            {
+                Response.Write("Error");
+                Response.End();
+            }
+            
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Everest_DVD
         protected void MovieSaveBtn_Click(object sender, EventArgs e)
         {
             string sql = $@"INSERT INTO movies (movie_name, producer, studio, release_date, is_age_restricted) OUTPUT INSERTED.ID  values ('{NameTB.Text.Trim()}', '{ProducerDDL.Text.Trim()}', '{StudioDDL.Text.Trim()}', '{ReleaseDateTB.Text.Trim()}', {(AgeRestrictedCB.Checked ? 1 : 0)})";
-            dh.saveData(sql);
+            dh.runQueryScalar(sql);
 
             Label1.Visible = true;
 
@@ -56,7 +56,7 @@ namespace Everest_DVD
                     if (item.Selected)
                     {
                         string sql1 = $@"INSERT INTO movie_cast values ({movieId}, '{item.Value.Trim()}')";
-                        dh.saveData(sql1);
+                        dh.runQuery(sql1);
 
                         Label1.Text = sql1; // dh.response;
                     } else

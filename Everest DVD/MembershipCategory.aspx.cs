@@ -26,7 +26,7 @@ namespace Everest_DVD
         protected void CategorySaveBtn_Click(object sender, EventArgs e)
         {
             string sql = $@"INSERT INTO membership_category(mem_title, max_dvd_loans) values('{CategoryNameTB.Text.Trim()}', '{MaxDVDTB.Text.Trim()}')";
-            dh.saveData(sql);
+            dh.runQuery(sql);
 
             Label1.Visible = true;
             Label1.Text = dh.response;

@@ -11,106 +11,79 @@ namespace Everest_DVD
 {
 
 
-    public partial class Stock
+    public partial class AddDVDStock
     {
 
         /// <summary>
-        /// Label2 control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
-        /// IssueResponse control.
+        /// NameLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label IssueResponse;
+        protected global::System.Web.UI.WebControls.Label NameLbl;
 
         /// <summary>
-        /// StockTbl control.
+        /// MovieDDL control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView StockTbl;
+        protected global::System.Web.UI.WebControls.DropDownList MovieDDL;
 
         /// <summary>
-        /// MovieHdn control.
+        /// CopiesLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField MovieHdn;
+        protected global::System.Web.UI.WebControls.Label CopiesLbl;
 
         /// <summary>
-        /// CopyHdn control.
+        /// CopiesTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField CopyHdn;
+        protected global::System.Web.UI.WebControls.TextBox CopiesTB;
 
         /// <summary>
-        /// MemberLbl control.
+        /// PriceLbl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label MemberLbl;
+        protected global::System.Web.UI.WebControls.Label PriceLbl;
 
         /// <summary>
-        /// MemberDDL control.
+        /// PriceTB control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList MemberDDL;
+        protected global::System.Web.UI.WebControls.TextBox PriceTB;
 
         /// <summary>
-        /// DueDateLbl control.
+        /// DVDSaveBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label DueDateLbl;
-
-        /// <summary>
-        /// DueDateTB control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox DueDateTB;
-
-        /// <summary>
-        /// IssueBtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button IssueBtn;
-
-        /// <summary>
-        /// CancelBtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CancelBtn;
+        protected global::System.Web.UI.WebControls.Button DVDSaveBtn;
     }
 }

@@ -19,7 +19,7 @@ namespace Everest_DVD
         protected void ActorSaveBtn_Click(object sender, EventArgs e)
         {
             string sql = $@"INSERT INTO actors(actor_name, actor_dob, actor_gender) values('{NameTB.Text.Trim()}', '{DOBTB.Text.Trim()}', '{GenderDDL.Text.Trim()}')";
-            dh.saveData(sql);
+            dh.runQuery(sql);
 
             Label1.Visible = true;
             Label1.Text = dh.response;
@@ -62,7 +62,7 @@ namespace Everest_DVD
             Label2.Visible = true;
             Label2.Text = "Row edited successfully";
 
-            dh.saveData(updateQuery);
+            dh.runQuery(updateQuery);
 
             ActorsTbl.EditIndex = -1;
 
@@ -75,7 +75,7 @@ namespace Everest_DVD
             Label actorId = ActorsTbl.Rows[e.RowIndex].FindControl("actor_id") as Label;
             string deleteQuery = "delete from actors where id=" + actorId.Text;
 
-            dh.saveData(deleteQuery);
+            dh.runQuery(deleteQuery);
 
             loadTable();
 

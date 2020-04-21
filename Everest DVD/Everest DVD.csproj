@@ -108,6 +108,7 @@
     <Content Include="404.aspx" />
     <Content Include="About.aspx" />
     <Content Include="Actors.aspx" />
+    <Content Include="AddDVD.aspx" />
     <Content Include="AddMovies.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -137,6 +138,7 @@
     <Content Include="Stock.aspx" />
     <Content Include="Studios.aspx" />
     <Content Include="WebForm1.aspx" />
+    <Content Include="Scripts\Handler1.ashx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Login.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -189,6 +191,13 @@
     </Compile>
     <Compile Include="Actors.aspx.designer.cs">
       <DependentUpon>Actors.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddDVD.aspx.cs">
+      <DependentUpon>AddDVD.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddDVD.aspx.designer.cs">
+      <DependentUpon>AddDVD.aspx</DependentUpon>
     </Compile>
     <Compile Include="AddMovies.aspx.cs">
       <DependentUpon>AddMovies.aspx</DependentUpon>
@@ -274,6 +283,9 @@
       <DependentUpon>Producers.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\Handler1.ashx.cs">
+      <DependentUpon>Handler1.ashx</DependentUpon>
+    </Compile>
     <Compile Include="SignUp.aspx.cs">
       <DependentUpon>SignUp.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

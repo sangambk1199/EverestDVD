@@ -24,7 +24,7 @@ namespace Everest_DVD
             string sql = $@"INSERT INTO users (user_name, full_name, user_email, user_password, user_role) values ('{TextBox1.Text.Trim()}', '{TextBox2.Text.Trim()}', '{TextBox3.Text.Trim()}', '{TextBox4.Text.Trim()}', 3)";
 
 
-            dh.saveData(sql);
+            dh.runQuery(sql);
             
             Label5.Text = dh.response;
 

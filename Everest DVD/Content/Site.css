@@ -208,10 +208,17 @@ form input[type='checkbox'] {
     color: #fff;
 }
 
-.sub-menu a::before {
+.sub-menu-trigger > a::before {
     content: '\25BA';
-    margin-right: 10px;
+    position: absolute;
+    right: 20px;
     font-size: 10px;
+    transform: rotateZ(90deg);
+    opacity: 0;
+}
+
+.sub-menu-trigger:hover > a::before {
+    opacity: 1;
 }
 
 .sub-menu-trigger:hover {
@@ -244,9 +251,39 @@ form input[type='checkbox'] {
     .login-form .form-group {
         margin-bottom: 20px;
     }
-    /* Responsive: Portrait tablets and up */
-    @media screen and (min-width: 768px) {
-        .jumbotron {
+
+.modal-popup {
+    position: absolute;
+    background-color: #001942;
+    width: 300px;
+    padding: 20px;
+}
+
+.modal-popup:not(.show) {
+    display: none;
+}
+
+.modal-popup .form-group:last-child {
+    margin-bottom: 0;
+}
+
+.modal-popup::before {
+    content: '';
+    top: -10px;
+    left: calc(50% - 10px);
+    background: #001942;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    transform: rotate(45deg);
+}
+
+#IssueResponse {
+    display: none;
+}
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .jumbotron {
         margin-top: 20px;
     }
 

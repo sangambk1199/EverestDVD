@@ -35,7 +35,7 @@ namespace Everest_DVD
         protected void CategorySaveBtn_Click(object sender, EventArgs e)
         {
             string sql = $@"INSERT INTO membership_category(mem_title, max_dvd_loans) values('{CategoryNameTB.Text.Trim()}', '{MaxDVDTB.Text.Trim()}')";
-            dh.saveData(sql);
+            dh.runQuery(sql);
 
             Label2.Visible = true;
             Label2.Text = dh.response;
@@ -48,7 +48,7 @@ namespace Everest_DVD
         protected void MemberSaveBtn_Click(object sender, EventArgs e)
         {
             string sql = $@"INSERT INTO members(member_full_name, member_contact, member_age, membership_category) values('{NameTB.Text.Trim()}', '{ContactTB.Text.Trim()}', '{AgeTB.Text.Trim()}', '{CategoryDDL.Text.Trim()}')";
-            dh.saveData(sql);
+            dh.runQuery(sql);
 
             Label2.Visible = true;
             Label2.Text = dh.response;
@@ -80,7 +80,7 @@ namespace Everest_DVD
             DropDownList memberCategory = MemberTbl.Rows[e.RowIndex].FindControl("EditCategoryDDL") as DropDownList;
 
             string updateQuery = "UPDATE members SET member_full_name='" + memberName.Text + "', member_contact='" + memberContact.Text + "', member_age=" + memberAge.Text + ", membership_category=" + memberCategory.SelectedValue + " where member_id=" + memberID.Text;
-            dh.saveData(updateQuery);
+            dh.runQuery(updateQuery);
             MemberTbl.EditIndex = -1;
 
             Label2.Visible = true;
@@ -123,7 +123,7 @@ namespace Everest_DVD
             Label memberID = MemberTbl.Rows[e.RowIndex].FindControl("member_id") as Label;
             string deleteQuery = "delete from members where member_id=" + memberID.Text;
 
-            dh.saveData(deleteQuery);
+            dh.runQuery(deleteQuery);
 
             loadTable();
 

@@ -25,7 +25,7 @@ namespace Everest_DVD
         protected void StudioSaveBtn_Click(object sender, EventArgs e)
         {
             string sql = $@"INSERT INTO studio (studio) values ('{NameTB.Text.Trim()}')";
-            dh.saveData(sql);
+            dh.runQuery(sql);
 
             Label1.Visible = true;
             Label1.Text = dh.response;

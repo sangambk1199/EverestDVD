@@ -17,18 +17,18 @@ namespace Everest_DVD
 
                 if(currentPage.ToLower() != "login" 
                     && currentPage.ToLower() != "signup"
-                    && currentPage.ToLower() != "404")
+                    && currentPage.ToLower() != "404"
+                    && currentPage.ToLower() != "stock")
                 {
                     //Response.Redirect("LoginPage", false);
                 }                
             } else
             {
                 int userRole = Convert.ToInt32(Session["user_role"]);
-                if (userRole == 3 && 
-                    (currentPage.ToLower() != "stock" 
+                if (userRole == 3 
                     && currentPage.ToLower() != "default"
                     && currentPage.ToLower() != "default.aspx"
-                    && currentPage.ToLower() != "404"))
+                    && currentPage.ToLower() != "404")
                 {
                     Response.Redirect("404", false);
                 }
@@ -41,7 +41,7 @@ namespace Everest_DVD
             Session["user_name"] = null;
             Session["user_role"] = null;
 
-            Response.Redirect("Login", false);
+            Response.Redirect("LoginPage", false);
         }
     }
 }

@@ -68,18 +68,27 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <% 
-                        if(Session["user_role"] != null) {
+                    <li><a runat="server" href="~/">Home</a></li>
+                     <% 
+                        if (Session["user_role"] == null)
+                        { %>
+                                        
+                                        <li>
+                                            <a runat="server" href="~/Stock">Stock</a>
+                                        </li>
+                                        <% 
+                        } else if(Session["user_role"] != null) {
                             int userRole = Convert.ToInt32(Session["user_role"]);
                             %>
                             <%
                             if (userRole == 1 || userRole == 2 || userRole == 3)
                             {%>
-                                <li><a runat="server" href="~/">Home</a></li>
-                                <li><a runat="server" href="~/Stock">Stock</a></li>
-                                
-                                <% if (userRole == 1 || userRole == 2)
-                                {%>
+                                    <li class="sub-menu-trigger">
+                                            <a runat="server" href="~/Stock">Stock</a>
+                                            <ul class="sub-menu">
+                                                <li><a runat="server" href="~/AddDVDStock">Add DVDs</a></li>
+                                            </ul>
+                                        </li>
                                     <li class="sub-menu-trigger">
                                         <a runat="server" href="~/Movies">Movies</a>
                                         <ul class="sub-menu">
@@ -98,7 +107,6 @@
                                         </ul>
                                     </li>
                                     <li><a runat="server" href="~/Users">Users</a></li>
-                                <%}%>
                         
                         <%  }
                         } 

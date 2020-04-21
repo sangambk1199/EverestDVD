@@ -35,7 +35,7 @@ namespace Everest_DVD
                             left join studio std on std.id = m.studio
                             left join dvd_stock ds on m.id = ds.movie
                             group by m.id, m.movie_name, pr.producer, std.studio, m.release_date, m.is_age_restricted, mc.movie
-                            order by m.release_date;";
+                            order by m.release_date desc";
 
             MovieTbl.DataSource = dh.getTable(sql1);
             MovieTbl.DataBind();
@@ -59,12 +59,12 @@ namespace Everest_DVD
         {
             Label movieID = MovieTbl.Rows[e.RowIndex].FindControl("Movie_id") as Label;
             string deleteQuery = "delete from movie_cast where movie=" + movieID.Text;
-            string deleteQuery2 = "delete from movies where id=" + movieID.Text;
             string deleteQuery3 = "delete from dvd_stock where movie=" + movieID.Text;
+            string deleteQuery2 = "delete from movies where id=" + movieID.Text;
 
-            dh.saveData(deleteQuery);
-            dh.saveData(deleteQuery2);
-            dh.saveData(deleteQuery3);
+            dh.runQuery(deleteQuery);
+            dh.runQuery(deleteQuery2);
+            dh.runQuery(deleteQuery3);
 
             loadTable();
 
@@ -105,7 +105,7 @@ namespace Everest_DVD
                             left join dvd_stock ds on m.id = ds.movie
                             WHERE act.actor_name LIKE '%{actorsName}%' or act.id LIKE '{actorsName}'
                             group by m.id, m.movie_name, pr.producer, std.studio, m.release_date, m.is_age_restricted, mc.movie
-                            order by m.release_date;";
+                            order by m.release_date desc";
 
                 MovieTbl.DataSource = dh.getTable(sql1);
                 MovieTbl.DataBind();

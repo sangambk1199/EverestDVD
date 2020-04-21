@@ -96,7 +96,33 @@ namespace Everest_DVD
             }
         }
 
-        public void saveData(string sql)
+        public void runQuery(string sql)
+        {
+            try
+            {
+                SqlConnection con = new SqlConnection(strcon);
+
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+
+                SqlCommand cmd = new SqlCommand(sql, con);
+
+                cmd.ExecuteNonQuery();
+                
+                con.Close();
+
+                response =  "Success";
+
+            }
+            catch (Exception ex)
+            {
+                response = ex.Message;
+            }
+        }
+
+        public void runQueryScalar(string sql)
         {
             try
             {
@@ -115,7 +141,7 @@ namespace Everest_DVD
 
                 con.Close();
 
-                response =  "Success";
+                response = "Success";
 
             }
             catch (Exception ex)
