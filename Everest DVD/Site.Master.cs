@@ -20,7 +20,7 @@ namespace Everest_DVD
                     && currentPage.ToLower() != "404"
                     && currentPage.ToLower() != "stock")
                 {
-                    //Response.Redirect("LoginPage", false);
+                    Response.Redirect("Stock", false);
                 }                
             } else
             {

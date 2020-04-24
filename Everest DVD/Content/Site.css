@@ -281,6 +281,17 @@ form input[type='checkbox'] {
 #IssueResponse {
     display: none;
 }
+
+
+.btn-red {
+    background-color: red;
+}
+
+.btn-red:hover {
+    background-color: #d00;
+}
+
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .jumbotron {

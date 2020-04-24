@@ -116,8 +116,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="DataService.asmx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
+    <Content Include="FindCopy.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -129,6 +131,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="IssueDVD.aspx" />
+    <Content Include="Loans.aspx" />
     <Content Include="LoginPage.aspx" />
     <Content Include="Members.aspx" />
     <Content Include="MembershipCategory.aspx" />
@@ -223,12 +226,23 @@
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
     <Compile Include="DataHandler.cs" />
+    <Compile Include="DataService.asmx.cs">
+      <DependentUpon>DataService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FindCopy.aspx.cs">
+      <DependentUpon>FindCopy.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FindCopy.aspx.designer.cs">
+      <DependentUpon>FindCopy.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -239,6 +253,13 @@
     </Compile>
     <Compile Include="IssueDVD.aspx.designer.cs">
       <DependentUpon>IssueDVD.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Loans.aspx.cs">
+      <DependentUpon>Loans.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Loans.aspx.designer.cs">
+      <DependentUpon>Loans.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

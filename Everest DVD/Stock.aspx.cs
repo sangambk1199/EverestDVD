@@ -57,5 +57,56 @@ namespace Everest_DVD
                 issueBtn.Attributes.Add("data-copy", dr["copy_num"].ToString());
             }
         }
+
+        protected void FilterDDL_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DeleteOldBtn.Visible = false;
+
+            if (FilterDDL.SelectedValue == "all")
+            {
+                loadTable();
+            } 
+            else if (FilterDDL.SelectedValue == "old")
+            {
+                string sql = @"select m.id, m.movie_name, copy_num, is_loaned, dvd_price, date_added
+                        from dvd_stock
+                        left join movies m on m.id = dvd_stock.movie
+                        where date_added < GETDATE() - 365";
+
+                StockTbl.DataSource = dh.getTable(sql);
+                StockTbl.DataBind();
+
+                DeleteOldBtn.Visible = true;
+            }
+            else if (FilterDDL.SelectedValue == "onloan")
+            {
+                string sql = @"select m.id, m.movie_name, copy_num, is_loaned, dvd_price, date_added
+                        from dvd_stock
+                        left join movies m on m.id = dvd_stock.movie
+                        where is_loaned = 1";
+
+                StockTbl.DataSource = dh.getTable(sql);
+                StockTbl.DataBind();
+            }
+            else if (FilterDDL.SelectedValue == "instock")
+            {
+                string sql = @"select m.id, m.movie_name, copy_num, is_loaned, dvd_price, date_added
+                        from dvd_stock
+                        left join movies m on m.id = dvd_stock.movie 
+                        where is_loaned = 0";
+
+                StockTbl.DataSource = dh.getTable(sql);
+                StockTbl.DataBind();
+            }            
+        }
+
+        protected void DeleteOldBtn_Click(object sender, EventArgs e)
+        {
+            string sql = @"delete from dvd_stock where date_added < (GETDATE() - 365)";
+            dh.runQuery(sql);
+
+            Label2.Visible = true;
+            Label2.Text = dh.response;
+        }
     }
 }

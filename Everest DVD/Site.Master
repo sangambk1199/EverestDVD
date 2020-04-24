@@ -86,7 +86,8 @@
                                     <li class="sub-menu-trigger">
                                             <a runat="server" href="~/Stock">Stock</a>
                                             <ul class="sub-menu">
-                                                <li><a runat="server" href="~/AddDVDStock">Add DVDs</a></li>
+                                                <li><a runat="server" href="~/AddDVD">Add DVDs</a></li>
+                                                <li><a runat="server" href="~/FindCopy">Find Copy Details</a></li>
                                             </ul>
                                         </li>
                                     <li class="sub-menu-trigger">

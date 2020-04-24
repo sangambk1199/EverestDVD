@@ -3,8 +3,23 @@
     <div class="row">
         <div class="col-md-12">
             <div class="box">
-                <h3>DVD Stock</h3>
+                <div class="row">
+                    <div class="col-md-8">
+                        <h3>DVD Stock</h3>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <asp:Label ID="Label1" runat="server" Text="Show: " CssClass="w-auto"></asp:Label>
+                        <asp:DropDownList ID="FilterDDL" runat="server" CssClass="w-auto" OnSelectedIndexChanged="FilterDDL_SelectedIndexChanged" AutoPostBack="True">
+                            <asp:ListItem Value="all">All</asp:ListItem>
+                            <asp:ListItem Value="old">Old DVDs</asp:ListItem>
+                            <asp:ListItem Value="onloan">DVDs on loan</asp:ListItem>
+                            <asp:ListItem Value="instock">DVDs in stock</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                </div>
                 <hr />
+
+                <asp:Button ID="DeleteOldBtn" runat="server" Text="Delete All DVDs" CssClass="btn-red w-auto" Visible="false" OnClick="DeleteOldBtn_Click"/>
 
                 <asp:Label ID="Label2" runat="server" Text="Label" Visible="False"></asp:Label>
 

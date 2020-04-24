@@ -83,29 +83,57 @@ namespace Everest_DVD
         {
             if (actorsName != "")
             {
+                string sql1;
                 Label2.Visible = true;
                 Label2.Text = "Showing results for: '" + actorsName + "'";
 
-                string sql1 = $@"select m.id, m.movie_name, pr.producer, std.studio, m.release_date, CASE 
-                                        WHEN m.is_age_restricted = 1 THEN 'Yes'
-                                        ELSE 'No'
-                                    END AS 'age_restriction',
-                            actors= STUFF((
-                                SELECT ', ' + act.actor_name 
-                                FROM movie_cast AS mcs
-	                            INNER JOIN actors as act on mcs.cast_member = act.id
-	                            where mcs.movie = mc.movie
-                                FOR XML PATH, TYPE).value(N'.[1]', N'varchar(max)'), 1, 2, ''),
-	                                COUNT(ds.copy_num) as 'no_of_copies'
-                            from movies m
-                            left join movie_cast mc on mc.movie = m.id
-                            left join actors act on act.id = mc.cast_member
-                            left join producers pr on pr.id = m.producer
-                            left join studio std on std.id = m.studio
-                            left join dvd_stock ds on m.id = ds.movie
-                            WHERE act.actor_name LIKE '%{actorsName}%' or act.id LIKE '{actorsName}'
-                            group by m.id, m.movie_name, pr.producer, std.studio, m.release_date, m.is_age_restricted, mc.movie
-                            order by m.release_date desc";
+                if (ShowCopies.Checked)
+                {
+                    sql1 = $@"select m.id, m.movie_name, pr.producer, std.studio, m.release_date, CASE 
+                                            WHEN m.is_age_restricted = 1 THEN 'Yes'
+                                            ELSE 'No'
+                                        END AS 'age_restriction',
+                                actors=STUFF((
+                                    SELECT ', ' + act.actor_name 
+                                    FROM movie_cast AS mcs
+	                                INNER JOIN actors as act on mcs.cast_member = act.id
+	                                where mcs.movie = mc.movie
+                                    FOR XML PATH, TYPE).value(N'.[1]', N'varchar(max)'), 1, 2, ''),
+	                                    COUNT(ds.copy_num) as 'no_of_copies'
+                                from movies m
+                                left join movie_cast mc on mc.movie = m.id
+                                left join actors act on act.id = mc.cast_member
+                                left join producers pr on pr.id = m.producer
+                                left join studio std on std.id = m.studio
+                                left join dvd_stock ds on m.id = ds.movie
+                                WHERE act.actor_name LIKE '%{actorsName}%' or act.id LIKE '{actorsName}'
+                                group by m.id, m.movie_name, pr.producer, std.studio, m.release_date, m.is_age_restricted, mc.movie
+                                having COUNT(ds.copy_num) > 0
+                                order by m.release_date desc";
+                } else
+                {
+                    sql1 = $@"select m.id, m.movie_name, pr.producer, std.studio, m.release_date, CASE 
+                                            WHEN m.is_age_restricted = 1 THEN 'Yes'
+                                            ELSE 'No'
+                                        END AS 'age_restriction',
+                                actors=STUFF((
+                                    SELECT ', ' + act.actor_name 
+                                    FROM movie_cast AS mcs
+	                                INNER JOIN actors as act on mcs.cast_member = act.id
+	                                where mcs.movie = mc.movie
+                                    FOR XML PATH, TYPE).value(N'.[1]', N'varchar(max)'), 1, 2, ''),
+	                                    COUNT(ds.copy_num) as 'no_of_copies'
+                                from movies m
+                                left join movie_cast mc on mc.movie = m.id
+                                left join actors act on act.id = mc.cast_member
+                                left join producers pr on pr.id = m.producer
+                                left join studio std on std.id = m.studio
+                                left join dvd_stock ds on m.id = ds.movie
+                                WHERE act.actor_name LIKE '%{actorsName}%' or act.id LIKE '{actorsName}'
+                                group by m.id, m.movie_name, pr.producer, std.studio, m.release_date, m.is_age_restricted, mc.movie
+                                order by m.release_date desc";
+                }
+                    
 
                 MovieTbl.DataSource = dh.getTable(sql1);
                 MovieTbl.DataBind();
@@ -125,6 +153,7 @@ namespace Everest_DVD
 
         protected void ShowCopies_CheckedChanged(object sender, EventArgs e)
         {
+            searchTable(SearchBox.Text);
             if(ShowCopies.Checked)
             {
                 MovieTbl.Columns[7].Visible = true;

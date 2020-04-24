@@ -11,6 +11,10 @@
     const memberSelect = document.querySelector('.modal-popup #MemberDDL');
     const dateDueSelect = document.querySelector('.modal-popup #DueDateTB');
 
+    //------------Find Copy
+    const movieSelect = document.querySelector('#FindMovieDDL');
+    const copySelect = document.querySelector('#FindCopyDDL');
+
     if (memberSelect) {
         memberSelect.addEventListener('change', () => {
             memberID = memberSelect.value;
@@ -121,5 +125,64 @@
             element = element.offsetParent;
         }
         return offsetLeft;
+    }
+
+
+    //-----------------Find Copy
+
+    function ajaxReq() {
+        if (window.XMLHttpRequest) {
+            return new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            return new ActiveXObject("Microsoft.XMLHTTP");
+        } else {
+            alert("Browser does not support XMLHTTP.");
+            return false;
+        }
+    }
+
+    if (movieSelect) {
+        movieSelect.addEventListener('change', () => {
+            console.log('changed' + movieSelect.value);
+
+            copySelect.innerHTML = "";
+            
+            let xmlHttp = ajaxReq();
+
+            xmlHttp.open('POST', 'DataService.asmx/GetCopies', true);
+            //xmlHttp.responseType = 'json';
+            xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlHttp.send("movieId=" + movieSelect.value);
+
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    try {
+                        var data = JSON.parse(xmlHttp.responseText);
+                        console.log(data);
+                        let option;
+
+                        for (let i = 0; i < data.length; i++) {
+                            option = document.createElement('option');
+                            option.text = data[i].copy_num;
+                            option.value = data[i].copy_num;
+                            copySelect.add(option);
+                        }
+                    } catch (err) {
+                        console.log(err.message + " in " + xmlHttp.responseText);
+                        return;
+                    }
+                }
+            }
+        });
+    }
+
+    if (copySelect) {
+        const hiddenField = document.querySelector('#CopyNumHdn');
+
+        copySelect.addEventListener('change', () => {
+            console.log('changed');
+            hiddenField.value = copySelect.value;
+        });
+        
     }
 });
